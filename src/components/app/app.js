@@ -18,7 +18,21 @@ export default class App extends Component {
                 {label: 'I need a break', important: false, id: 'adam'}
             ]
         }
+        this.deleteItem = this.deleteItem.bind(this)
+
     }
+    deleteItem(id){
+        this.setState(({data}) => {
+            const index = data.findIndex(elem => elem.id === id);
+
+            const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
+
+            return {
+                data: newArr
+            }
+        });
+    }
+
     render(){
         return (
             <div className="app">
@@ -30,7 +44,7 @@ export default class App extends Component {
                 </div>
                 <PostList 
                 posts={this.state.data}
-                onDelete={ id => console.log(id) }/>
+                onDelete={ this.deleteItem }/>
                 <PostAddForm/>
             </div>
         )
