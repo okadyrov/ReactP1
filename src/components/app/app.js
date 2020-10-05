@@ -48,6 +48,7 @@ export default class App extends Component {
             }
         })
     }
+    
 
     render(){
         return (
@@ -60,7 +61,9 @@ export default class App extends Component {
                 </div>
                 <PostList 
                 posts={this.state.data}
-                onDelete={ this.deleteItem }/>
+                onDelete={ this.deleteItem }
+                onToggleImportant={this.onDelete}
+                onToggleLike={this.onToggleLike} />
                 <PostAddForm
                     onAdd={this.addItem}/>
             </div>
