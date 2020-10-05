@@ -20,6 +20,8 @@ export default class App extends Component {
         }
         this.deleteItem = this.deleteItem.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.onToggleImportant = this.onToggleImportant.bind(this);
+        this.onToggleLiked = this.onToggleLiked.bind(this);
 
         this.maxId = 4;
 
@@ -48,7 +50,14 @@ export default class App extends Component {
             }
         })
     }
-    
+
+    onToggleImportant(id) {
+        console.log(`Important ${id}`);
+    }
+    onToggleLiked(id) {
+        console.log(`Like ${id}`);
+    }
+
 
     render(){
         return (
@@ -62,8 +71,8 @@ export default class App extends Component {
                 <PostList 
                 posts={this.state.data}
                 onDelete={ this.deleteItem }
-                onToggleImportant={this.onDelete}
-                onToggleLike={this.onToggleLike} />
+                onToggleImportant={this.onToggleImportant}
+                onToggleLiked={this.onToggleLiked} />
                 <PostAddForm
                     onAdd={this.addItem}/>
             </div>
