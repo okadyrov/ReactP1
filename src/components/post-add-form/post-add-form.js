@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-//import './post-add-form.css'
+import './post-add-form.css'
 
 export default class PostAddForm extends Component {
     constructor(props){
