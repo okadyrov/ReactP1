@@ -13,9 +13,9 @@ export default class App extends Component {
         super(props);
         this.state = {
             data : [
-                {label: 'Going to learn React', important: true, id: 1},
-                {label: 'That is so good!', important: false, id: 2},
-                {label: 'I need a break', important: false, id: 3}
+                {label: 'Going to learn React', important: true, like: false, id: 1},
+                {label: 'That is so good!', important: false, like: false, id: 2},
+                {label: 'I need a break', important: false, like: false, id: 3}
             ]
         }
         this.deleteItem = this.deleteItem.bind(this);
@@ -52,17 +52,43 @@ export default class App extends Component {
     }
 
     onToggleImportant(id) {
-        console.log(`Important ${id}`);
+        this.setState(({data}) => {
+            const index = data.findIndex(elem => elem.id === id);
+            const old = data[index];
+            const newItem = {...old, important: !old.important};
+
+            const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+            return {
+                data: newArr
+            }
+        })
     }
     onToggleLiked(id) {
-        console.log(`Like ${id}`);
+        this.setState(({data}) => {
+            const index = data.findIndex(elem => elem.id === id);
+            const old = data[index];
+            const newItem = {...old, like: !old.like};
+
+            const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+            return {
+                data: newArr
+            }
+        })
     }
 
 
     render(){
+        const {data} = this.state;
+
+        const liked = data.filter(item => item.like).length;
+        const allPosts = data.length;
         return (
             <div className="app">
-                <AppHeader/>
+                <AppHeader
+                liked={liked}
+                allPosts={allPosts}/>
                 <div className="search-panel d-flex">
                     <SearchPanel/>
                     <PostStatusFilter/>
